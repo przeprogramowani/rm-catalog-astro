@@ -6,7 +6,7 @@ import node from '@astrojs/node';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), tailwind()],
-  output: 'server',
+  output: 'hybrid',
   server: {
     port: 3000,
   },
