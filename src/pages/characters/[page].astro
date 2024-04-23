@@ -1,0 +1,14 @@
+---
+import {DefaultApi} from '../../../lib/rick-and-morty-api-client';
+import Characters from '../../components/Characters';
+import Layout from '../../layouts/layout.astro';
+
+const {page} = Astro.params;
+
+const api = new DefaultApi();
+const response = await api.getCharacters({page: parseInt(page || '1')});
+---
+
+<Layout>
+  <Characters {...response} client:load />
+</Layout>

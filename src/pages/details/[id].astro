@@ -1,0 +1,21 @@
+---
+import {DefaultApi} from '../../../lib/rick-and-morty-api-client';
+import CharacterDetails from '../../components/CharacterDetails';
+import Layout from '../../layouts/layout.astro';
+
+const {id} = Astro.params;
+
+if (!id) {
+  return new Response(null, {
+    status: 404,
+    statusText: 'Not found',
+  });
+}
+
+const api = new DefaultApi();
+const character = await api.getSingleCharacter({id: parseInt(id)});
+---
+
+<Layout>
+  <CharacterDetails {character} client:load />
+</Layout>

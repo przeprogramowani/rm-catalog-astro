@@ -1,8 +1,12 @@
 ---
+import {DefaultApi} from '../../lib/rick-and-morty-api-client';
 import Characters from '../components/Characters';
 import Layout from '../layouts/layout.astro';
+
+const api = new DefaultApi();
+const response = await api.getCharacters();
 ---
 
 <Layout>
-  <Characters client:only='react' />
+  <Characters {...response} client:load />
 </Layout>
