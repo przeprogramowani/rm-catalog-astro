@@ -1,0 +1,23 @@
+---
+import logo from "../assets/logo-dark-vertical-1.png";
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='viewport' content='width=device-width' />
+    <title>RM Catalog - Astro</title>
+  </head>
+  <body class='bg-gray-200 p-4'>
+    <div class='bg-white rounded-lg shadow-sm p-4 mb-4'>
+      <h1 class='text-xl font-bold text-center'>🚀 Rick and Morty!</h1>
+    </div>
+    <slot />
+    <img
+      src={logo.src}
+      alt='Logo projektu Opanuj Frontend'
+      class='w-32 mt-4 mx-auto'
+    />
+  </body>
+</html>
