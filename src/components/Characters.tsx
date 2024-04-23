@@ -1,28 +1,7 @@
-import { useEffect, useState } from 'react';
-import {
-  DefaultApi,
-  type Character,
-  type CharacterListResponse,
-  type CharacterListResponseInfo,
-} from '../../lib/rick-and-morty-api-client';
+import { type CharacterListResponse } from '../../lib/rick-and-morty-api-client';
 import CharactersPagination from './CharactersPagination';
 
-const Characters = () => {
-  const [info, setInfo] = useState<CharacterListResponseInfo>();
-  const [characters, setCharacters] = useState<Character[]>([]);
-
-  useEffect(() => {
-    const api = new DefaultApi();
-    const params = new URLSearchParams(window.location.search);
-
-    const page = params.has('page') ? Number(params.get('page')) : 1;
-
-    api.getCharacters({ page }).then((response: CharacterListResponse) => {
-      setInfo(response.info);
-      setCharacters(response.results || []);
-    });
-  }, []);
-
+const Characters = ({ info, results }: CharacterListResponse) => {
   return (
     <div
       className="bg-white rounded-lg shadow-sm p-4"
@@ -30,10 +9,10 @@ const Characters = () => {
     >
       <p className="font-bold mb-4">Select a character:</p>
       <ul>
-        {characters.map((character) => (
+        {results!.map((character) => (
           <li key={character.id} className="mb-4">
             <a
-              href={`/details?id=${character.id}`}
+              href={`/details/${character.id}`}
               data-testid={`character-link-${character.id}`}
             >
               <div className="flex flex-row items-center space-x-2 border border-gray-100 rounded-md hover:border-blue-200 hover:bg-blue-100/50 p-4">
