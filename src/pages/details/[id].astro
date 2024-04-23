@@ -1,21 +1,33 @@
 ---
-export const prerender = false;
+import type {GetStaticPathsResult} from 'astro';
+export const prerender = true;
 
-import {DefaultApi} from '../../../lib/rick-and-morty-api-client';
+import {
+  DefaultApi,
+  type Character,
+} from '../../../lib/rick-and-morty-api-client';
 import CharacterDetails from '../../components/CharacterDetails';
 import Layout from '../../layouts/layout.astro';
 
-const {id} = Astro.params;
-
-if (!id) {
-  return new Response(null, {
-    status: 404,
-    statusText: 'Not found',
-  });
+export async function getStaticPaths(): Promise<GetStaticPathsResult> {
+  const api = new DefaultApi();
+  return [
+    {
+      params: {id: '1'},
+      props: {character: await api.getSingleCharacter({id: 1})},
+    },
+    {
+      params: {id: '2'},
+      props: {character: await api.getSingleCharacter({id: 2})},
+    },
+    {
+      params: {id: '3'},
+      props: {character: await api.getSingleCharacter({id: 3})},
+    },
+  ];
 }
 
-const api = new DefaultApi();
-const character = await api.getSingleCharacter({id: parseInt(id)});
+const character = Astro.props.character as Character;
 ---
 
 <Layout>
